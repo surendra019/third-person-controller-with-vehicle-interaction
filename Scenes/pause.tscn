@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsruo7hu2knpn"]
+
+[ext_resource type="Shader" path="res://Shaders/pause.gdshader" id="1_jbxjs"]
+[ext_resource type="Texture2D" uid="uid://bqewnipqxkgn0" path="res://icon.png" id="2_skqa7"]
+
+[sub_resource type="GDScript" id="GDScript_to3tb"]
+script/source = "extends Control
+
+
+func _ready():
+	self.hide()
+func _on_resume_btn_pressed():
+	self.hide()
+	pass # Replace with function body.
+
+
+func _on_quit_btn_pressed():
+	get_tree().quit()
+	pass # Replace with function body.
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ld6as"]
+shader = ExtResource("1_jbxjs")
+shader_parameter/lod = 2.196
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_to3tb")
+
+[node name="Blur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ld6as")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_skqa7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.5
+offset_top = -82.0
+offset_right = 112.5
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Resume
+"
+
+[node name="QuitBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/ResumeBtn" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
